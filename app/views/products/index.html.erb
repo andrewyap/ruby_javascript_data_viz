@@ -6,6 +6,9 @@
 
  
 <h2> Products in the market </h2>
+<a href="#" data-hide-element='chart'>Hide/Show Chart</a>
+<a href='https://google.com'> Google</a>
+<a href = "javascript:void(0)" onclick="$('#highChartContainer').toggle()">Chart</a>
 
 <div id='highChartContainer' style='min-width: 400px; height: 400px; margin: 0 auto'></div>
 
@@ -81,5 +84,9 @@
     });
 </script>
  
-
+<script type='text/javascript'>
+  $('[data-hide-element=chart]').on('click', function(){
+    $('#highChartContainer').toggle()
+  });
+</script>
 
