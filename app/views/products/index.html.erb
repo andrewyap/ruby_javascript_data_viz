@@ -1,4 +1,13 @@
+<script type='text/javascript'>
+  console.log('the number of products is ' + '<%= @products.count %>');
+</script>
+
+
+
+ 
 <h2> Products in the market </h2>
+
+<div id='highChartContainer' style='min-width: 400px; height: 400px; margin: 0 auto'></div>
 
 <table>
   <tbody>
@@ -12,17 +21,65 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.id %></td>
-      	<td><%= product.name %></td>
-      	<td>$<%= product.price %></td>
-      	<td><%= product.user.name if product.user.present? %></td>
+        <td><%= product.name %></td>
+        <td>$<%= product.price %></td>
+        <td><%= product.user.name if product.user.present? %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<div id='highChartContainer2' style='min-width: 400px; height: 400px; margin: 0 auto'></div>
+
+<script type='text/javascript'>
+    chart = new Highcharts.Chart({
+      chart: {
+        renderTo: 'highChartContainer',
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false
+      },
+      title: {
+        text: 'Browser market shares at a specific website, 2010'
+      },
+      series: [{
+        type: 'pie',
+        name: 'Browser share',
+        data: 
+          <%= 
+            @products.map do |product|
+              [product.name, product.price/@sum_price.to_f]
+            end.to_json.html_safe
+          %>
+      }]
+    });
+</script>
    
-   
-	
+<script type='text/javascript'>
+    chart = new Highcharts.Chart({
+      chart: {
+        renderTo: 'highChartContainer2',
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false
+      },
+      title: {
+        text: 'Browser market shares at a specific website, 2010'
+      },
+      series: [{
+        type: 'pie',
+        name: 'Browser share',
+        data: [
+                ['Firefox', 45.0],
+                ['IE',      26.8],
+                ['Chrome',  12.8],
+                ['Safari',  8.5],
+                ['Opera',   6.2],
+                ['Others',  0.7]
+              ]
+      }]
+    });
+</script>
  
 
 
